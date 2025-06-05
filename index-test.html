@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VALORANT 武器介紹</title>
+  <!-- 網頁標籤小圖示 -->
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_pink_color_version.svg" type="image/svg+xml" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Canvas 背景鋪滿 */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;  /* 放最底層 */
+      background: #121212; /* 深色底色 */
+    }
+
+    /* General body styling */
+    body {
+      font-family: 'Lato', sans-serif;
+      /* 背景改用canvas，不用背景圖 */
+      color: #333;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Title Styling */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 3.5em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad, #ff6f61);
+      color: #6a1b9a; /* 深紫色 */
+      text-shadow:
+        2px 2px 6px rgba(105, 53, 146, 0.9),
+        0 0 10px rgba(255, 111, 97, 0.7);
+      transition: all 0.4s ease, text-shadow 0.6s ease;
+    }
+
+    h2:hover {
+      background: linear-gradient(135deg, #8e44ad, #9b59b6, #ff6f61);
+      color: #7b32c9;
+      text-shadow: 5px 5px 15px rgba(142, 68, 173, 0.8);
+      transform: rotate(5deg);
+    }
+
+    /* 自訂下拉選單 */
+    .custom-dropdown {
+      position: relative;
+      width: 250px;
+      user-select: none;
+      font-weight: bold;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #7ab8d4, #a3c9f1, #f9d423);
+      border: 2px solid #8e44ad;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+    }
+
+    .dropdown-selected {
+      padding: 15px 30px;
+      font-size: 18px;
+    }
+
+    .dropdown-items {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: #333;
+      z-index: 100;
+    }
+
+    .custom-dropdown:hover .dropdown-items {
+      max-height: 200px; /* 滑鼠移入時展開 */
+      overflow-y: auto;
+    }
+
+    .dropdown-items div {
+      padding: 12px 30px;
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.2s ease;
+    }
+
+    .dropdown-items div:hover {
+      background-color: #8e44ad;
+      color: white;
+      font-weight: bold;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    /* Tab Content Styling */
+    .tabcontent {
+      display: none;
+      max-width: 900px;
+      width: 100%;
+      padding: 25px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f9d423, #ff6f61);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s ease-out, slideUp 0.6s ease;
+      margin-top: 20px;
+      transition: all 0.3s ease, transform 0.3s ease;
+      color: #3a0ca3; /* 深紫色文字 */
+    }
+
+    .tabcontent p {
+      font-size: 1.2rem;       /* 放大文字 */
+      line-height: 1.8;        /* 增加行距，閱讀更舒適 */
+      color: #4b367c;          /* 深紫色調 */
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6); /* 淡淡光暈讓字更清楚 */
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Header Styling */
+    h3 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad, #ff6f61);
+      color: #6a1b9a; /* 加深紫色 */
+      font-weight: 700;
+      text-shadow:
+        2px 2px 6px rgba(105, 53, 146, 0.9),
+        0 0 10px rgba(255, 111, 97, 0.7);
+      transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.3s ease;
+    }
+
+    h3:hover {
+      background: linear-gradient(135deg, #ff6f61, #9b59b6, #8e44ad); 
+      color: #7b32c9;
+      text-shadow: 3px 3px 10px rgba(255, 87, 51, 0.8);
+      transform: translateY(-5px);
+    }
+
+    /* Image Styling */
+    img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.4s ease;
+    }
+
+    img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Container Styling */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 20px;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease, transform 0.3s ease;
+      overflow: hidden;
+      backdrop-filter: none;
+      color: #3a0ca3; /* 深紫文字 */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 動態背景 Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="container">
+    <h2>VALORANT 武器介紹</h2>
+
+    <!-- 自訂下拉選單 -->
+    <div class="custom-dropdown">
+      <div class="dropdown-selected">請選擇武器</div>
+      <div class="dropdown-items">
+        <div data-value="VALORANT">VALORANT</div>
+        <div data-value="VANDAL">VANDAL</div>
+        <div data-value="PHANTOM">PHANTOM</div>
+        <div data-value="OPERATOR">OPERATOR</div>
+      </div>
+    </div>
+
+    <!-- 內容區塊 -->
+    <div id="VALORANT" class="tabcontent">
+      <h3>VALORANT</h3>
+      <p>《Valorant》是一場未來戰場的視覺詩篇，燃燒著鋼鐵與火焰的交響。
+        每一聲槍響都如雷霆炸裂，撕裂黑夜，喚醒戰士血脈中的無限戰意。英雄們操控著致命的武器與超凡技能，化身戰場上的幽影與烈焰，在策略與速度的極致平衡中，演繹無懈可擊的戰術舞蹈。這裡沒有僥倖，只有精準與決斷的碰撞；沒有退縮，只有燃燒意志的鋼鐵脈動。Valorant不僅是遊戲，更是一場靈魂與榮耀的試煉，是戰火中淬鍊出最強勇者的熔爐。在這裡，每一次勝利都是血與火的讚歌，每一次出擊都注定被銘刻為傳奇。點燃你的熱血，掌控命運，成為戰場永恆的王者！
+
+      </p>
+      <img src="https://i0.wp.com/uploads.saigacdn.com/2024/08/valorant-cs-release-00.jpg?resize=1200,630" alt="VALORANT">
+    </div>
+
+    <div id="VANDAL" class="tabcontent">
+      <h3>VANDAL</h3>
+      <p>Valorant中的Vandal，宛如戰場上的璀璨利劍，散發著無與倫比的霸氣與優雅。
+        這把突擊步槍融合了絕妙的穩定性與強烈的爆發力，無論遠距離的致命一擊，還是近戰的迅疾制敵，都展現出無可匹敵的精準與力量。每一次扣動扳機，猶如星辰劃過夜空，瞬間點燃戰場上的寂靜，撼動敵人心靈深處。Vandal不僅是射手的利器，更是征服者的象徵，承載著無盡榮耀與無畏精神，激發每一位戰士無限的戰鬥渴望與決心。</p>
+      <img src="https://image.gamebase.com.tw/gb_img/9/004/337/4337299.jpg" alt="VANDAL">
+    </div>
+
+    <div id="PHANTOM" class="tabcontent">
+      <h3>PHANTOM</h3>
+      <p>Phantom，Valorant中宛如幽影般神秘且致命的突擊步槍，融匯了沉穩與優雅的完美平衡。
+        它的柔和射擊聲猶如夜晚的微風，無聲無息卻致命無比，讓敵人在不知不覺間陷入險境。憑藉卓越的射擊精準度與優異的隱蔽性能，Phantom在中遠距離戰鬥中如同暗夜中的幽靈，迅捷且致命。每一發子彈都是對勝利的執著追求，彰顯出持槍者的冷靜與鋭利。Phantom不僅是武器，更是戰場上無聲的守護者，陪伴勇者披荊斬棘，締造傳奇。</p>
+      <img src="https://nowplay8.com/wp-content/uploads/2024/06/valorant-1.webp" alt="PHANTOM">
+    </div>
+
+    <div id="OPERATOR" class="tabcontent">
+      <h3>OPERATOR</h3>
+      <p>Operator，Valorant中威震戰場的狙擊巨匠，象徵著致命的精準與無情的制裁。
+        它那深沉的槍聲如雷霆般撼動敵陣，每一發子彈皆直指要害，瞬間改寫戰局。這把遠距離致命利器，結合穩定的瞄準與強大的穿透力，使得操控者猶如幽靈般悄無聲息地掌控全場。Operator不僅是武器，更是戰士眼中的無懈可擊，守護團隊勝利的堅實屏障，是每一場戰鬥中不可或缺的致命王牌。</p>
+      <img src="https://www.upmedia.mg/upload/article/20240306193447706711.png" alt="OPERATOR">
+    </div>
+  </div>
+
+  <script>
+    // 下拉選單切換內容
+    const dropdownSelected = document.querySelector('.dropdown-selected');
+    const dropdownItems = document.querySelectorAll('.dropdown-items div');
+
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const value = item.getAttribute('data-value');
+        dropdownSelected.textContent = item.textContent;
+        showWeapon(value);
+      });
+    });
+
+    function showWeapon(selected = "VALORANT") {
+      const contents = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < contents.length; i++) {
+        contents[i].style.display = "none";
+      }
+      const activeContent = document.getElementById(selected);
+      if (activeContent) activeContent.style.display = "block";
+    }
+
+    // 預設顯示 VALORANT
+    showWeapon();
+
+    // 粒子背景動畫
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    const particles = [];
+    const particleCount = 120;
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // 初始化粒子
+    for(let i=0; i<particleCount; i++) {
+      particles.push({
+        x: random(0, width),
+        y: random(0, height),
+        size: random(1.5, 3.5),
+        speedX: random(-0.4, 0.4),
+        speedY: random(-0.4, 0.4),
+        color: `rgba(255, 111, 97, ${random(0.3, 0.7)})`
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for(let p of particles) {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if(p.x < 0) p.x = width;
+        else if(p.x > width) p.x = 0;
+        if(p.y < 0) p.y = height;
+        else if(p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+</body>
+</html>
