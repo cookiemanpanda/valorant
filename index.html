@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VALORANT 武器介紹</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* General body styling */
+    body {
+      font-family: 'Lato', sans-serif;
+      background: url('https://o.qoo-img.com/news.qoo-app.com/wp-content/uploads/2021/06/21060306494852.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Title Styling */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 3.5em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad, #ff6f61);
+      color: transparent;
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease, text-shadow 0.6s ease;
+    }
+
+    h2:hover {
+      background: linear-gradient(135deg, #8e44ad, #9b59b6, #ff6f61);
+      color: transparent;
+      text-shadow: 5px 5px 15px rgba(142, 68, 173, 0.8);
+      transform: rotate(5deg);
+    }
+
+    /* Select Dropdown Styling */
+    select {
+      font-size: 18px;
+      padding: 15px 30px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #7ab8d4, #a3c9f1, #f9d423);
+      color: white;
+      border: 2px solid #8e44ad;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.4s ease, transform 0.2s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 10;
+      display: inline-block; /* 確保下拉選單顯示 */
+    }
+
+    select:hover {
+      background: linear-gradient(135deg, #a3c9f1, #7ab8d4, #f9d423);
+      border-color: #8e44ad;
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #ff9900;
+      box-shadow: 0 0 12px rgba(255, 153, 0, 0.8);
+    }
+
+    /* Tab Content Styling */
+    .tabcontent {
+      display: none;
+      max-width: 900px;
+      width: 100%;
+      padding: 25px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f9d423, #ff6f61);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s ease-out, slideUp 0.6s ease;
+      margin-top: 20px;
+      transition: all 0.3s ease, transform 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Header Styling */
+    h3 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad, #ff6f61);
+      color: transparent;
+      font-weight: 700;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+      transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.3s ease;
+    }
+
+    h3:hover {
+      background: linear-gradient(135deg, #ff6f61, #9b59b6, #8e44ad); 
+      color: transparent;
+      text-shadow: 3px 3px 10px rgba(255, 87, 51, 0.8);
+      transform: translateY(-5px);
+    }
+
+    /* Image Styling */
+    img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.4s ease;
+    }
+
+    img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Action Button Styling */
+    .action-button {
+      background-color: #9b59b6;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease, transform 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .action-button:hover {
+      background-color: #8e44ad;
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .action-button:focus {
+      outline: none;
+      box-shadow: 0 0 12px rgba(255, 153, 0, 0.8);
+    }
+
+    /* Container Styling */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 20px;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease, transform 0.3s ease;
+      overflow: hidden;
+      backdrop-filter: none;
+    }
+
+    /* Show Weapon Tab Content */
+    .tabcontent {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>VALORANT 武器介紹</h2>
+
+    <select id="weaponDropdown" onchange="showWeapon()">
+      <option value="VALORANT">VALORANT</option>
+      <option value="VANDAL">VANDAL</option>
+      <option value="PHANTOM">PHANTOM</option>
+      <option value="OPERATOR">OPERATOR</option>
+    </select>
+
+    <div id="VALORANT" class="tabcontent">
+      <h3>VALORANT</h3>
+      <p>親愛的玩家們，您還在尋找一款既具挑戰性又充滿策略性的射擊遊戲嗎？那麼，《VALORANT》絕對是您的首選！由 Riot Games 推出，是一款集結了精準射擊與獨特角色技能的戰術射擊遊戲。</p>
+      <img src="https://i0.wp.com/uploads.saigacdn.com/2024/08/valorant-cs-release-00.jpg?resize=1200,630" alt="VALORANT">
+    </div>
+
+    <div id="VANDAL" class="tabcontent">
+      <h3>VANDAL</h3>
+      <p>想要一擊必殺的快感嗎？暴徒是《特戰英豪》中最具破壞力的武器之一，擁有優秀的單發傷害，無論是遠距離還是近距離戰鬥，它都能帶給敵人致命的打擊。</p>
+      <img src="https://image.gamebase.com.tw/gb_img/9/004/337/4337299.jpg" alt="VANDAL">
+    </div>
+
+    <div id="PHANTOM" class="tabcontent">
+      <h3>PHANTOM</h3>
+      <p>如果你喜歡高射速、靈活操作和近距離的打擊，那麼幻象正是你在《特戰英豪》中不可或缺的武器！這把步槍擁有極高的射速，能在瞬息萬變的戰場上給敵人致命一擊。</p>
+      <img src="https://nowplay8.com/wp-content/uploads/2024/06/valorant-1.webp" alt="PHANTOM">
+    </div>
+
+    <div id="OPERATOR" class="tabcontent">
+      <h3>OPERATOR</h3>
+      <p>想要在《特戰英豪》中稱霸狙擊領域嗎？那麼，間諜（OPERATOR） 就是為你而設的武器！這把狙擊槍擁有超高的單發傷害，能在一擊之下決定戰局。</p>
+      <img src="https://www.upmedia.mg/upload/article/20240306193447706711.png" alt="OPERATOR">
+    </div>
+  </div>
+
+  <script>
+    function showWeapon() {
+      const dropdown = document.getElementById("weaponDropdown");
+      const selected = dropdown.value;
+      const contents = document.getElementsByClassName("tabcontent");
+
+      for (let i = 0; i < contents.length; i++) {
+        contents[i].style.display = "none";
+      }
+
+      document.getElementById(selected).style.display = "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      showWeapon();
+    });
+  </script>
+</body>
+</html>
