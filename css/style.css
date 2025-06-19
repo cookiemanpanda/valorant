@@ -69,7 +69,7 @@ select {
   padding: 15px 30px;
   border-radius: 25px;
   background: radial-gradient(circle, #ff99cc, #ff6f61);
-  color: white;
+  color: #222; /* 文字改成深色，提高對比 */
   border: 2px solid #ff6f61;
   cursor: pointer;
   font-weight: bold;
@@ -79,6 +79,7 @@ select {
   position: relative;
   z-index: 10;
   animation: glowingButton 2s ease-in-out infinite;
+  text-shadow: 1px 1px 1px rgba(255 255 255 / 0.6); /* 文字加點陰影讓字更立體 */
 }
 
 @keyframes glowingButton {
@@ -98,12 +99,14 @@ select:hover {
   border-color: #ff6f61;
   transform: scale(1.08);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  color: #111; /* hover 時字色更深 */
 }
 
 select:focus {
   outline: none;
   border-color: #ff9900;
   box-shadow: 0 0 12px rgba(255, 153, 0, 0.8);
+  color: #111; /* focus 時字色更深 */
 }
 
 /* Tab Content Styling with cosmic background */

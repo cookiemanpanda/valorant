@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VALORANT 武器介紹</title>
+  <title>VALORANT 武器傳說殿堂</title>
+
+  <!-- Favicon 小圖示 -->
+  <link rel="icon" type="image/svg+xml" href="https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_pink_color_version.svg" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
+    /* 保持你的原本 CSS，這裡省略已整理過的部分 */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    /* General body styling */
     body {
       font-family: 'Lato', sans-serif;
       background: url('https://o.qoo-img.com/news.qoo-app.com/wp-content/uploads/2021/06/21060306494852.jpg') no-repeat center center fixed;
@@ -25,10 +28,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: all 0.3s ease;
     }
 
-    /* Title Styling */
     h2 {
       text-align: center;
       margin-bottom: 20px;
@@ -37,17 +38,24 @@
       background: linear-gradient(135deg, #9b59b6, #8e44ad, #ff6f61);
       color: transparent;
       text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease, text-shadow 0.6s ease;
     }
 
     h2:hover {
-      background: linear-gradient(135deg, #8e44ad, #9b59b6, #ff6f61);
-      color: transparent;
-      text-shadow: 5px 5px 15px rgba(142, 68, 173, 0.8);
       transform: rotate(5deg);
+      text-shadow: 5px 5px 15px rgba(142, 68, 173, 0.8);
     }
 
-    /* Select Dropdown Styling */
+    .logo-icon {
+      width: 100px;
+      margin-bottom: 10px;
+      filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.3));
+      transition: transform 0.3s ease;
+    }
+
+    .logo-icon:hover {
+      transform: scale(1.1);
+    }
+
     select {
       font-size: 18px;
       padding: 15px 30px;
@@ -57,28 +65,9 @@
       border: 2px solid #8e44ad;
       cursor: pointer;
       font-weight: bold;
-      transition: all 0.4s ease, transform 0.2s ease;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
       margin-bottom: 20px;
-      position: relative;
-      z-index: 10;
-      display: inline-block; /* 確保下拉選單顯示 */
     }
 
-    select:hover {
-      background: linear-gradient(135deg, #a3c9f1, #7ab8d4, #f9d423);
-      border-color: #8e44ad;
-      transform: scale(1.08);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #ff9900;
-      box-shadow: 0 0 12px rgba(255, 153, 0, 0.8);
-    }
-
-    /* Tab Content Styling */
     .tabcontent {
       display: none;
       max-width: 900px;
@@ -87,9 +76,8 @@
       border-radius: 20px;
       background: linear-gradient(135deg, #f9d423, #ff6f61);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.6s ease-out, slideUp 0.6s ease;
       margin-top: 20px;
-      transition: all 0.3s ease, transform 0.3s ease;
+      animation: fadeIn 0.6s ease-out, slideUp 0.6s ease;
     }
 
     @keyframes fadeIn {
@@ -102,7 +90,6 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Header Styling */
     h3 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -111,57 +98,16 @@
       color: transparent;
       font-weight: 700;
       text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-      transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.3s ease;
     }
 
-    h3:hover {
-      background: linear-gradient(135deg, #ff6f61, #9b59b6, #8e44ad); 
-      color: transparent;
-      text-shadow: 3px 3px 10px rgba(255, 87, 51, 0.8);
-      transform: translateY(-5px);
-    }
-
-    /* Image Styling */
     img {
       width: 100%;
       max-width: 400px;
       border-radius: 15px;
       margin-top: 20px;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.4s ease;
     }
 
-    img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Action Button Styling */
-    .action-button {
-      background-color: #9b59b6;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: all 0.4s ease, transform 0.3s ease;
-      margin-top: 20px;
-    }
-
-    .action-button:hover {
-      background-color: #8e44ad;
-      transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
-
-    .action-button:focus {
-      outline: none;
-      box-shadow: 0 0 12px rgba(255, 153, 0, 0.8);
-    }
-
-    /* Container Styling */
     .container {
       max-width: 1200px;
       width: 100%;
@@ -172,24 +118,17 @@
       padding: 30px;
       background-color: rgba(255, 255, 255, 0.9);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease, transform 0.3s ease;
-      overflow: hidden;
-      backdrop-filter: none;
-    }
-
-    /* Show Weapon Tab Content */
-    .tabcontent {
-      display: block;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h2>VALORANT 武器介紹</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_pink_color_version.svg" alt="VALORANT Logo" class="logo-icon">
+    <h2>VALORANT 武器傳說殿堂</h2>
 
     <select id="weaponDropdown" onchange="showWeapon()">
-      <option value="VALORANT">VALORANT</option>
+      <option value="VALORANT" selected>VALORANT</option>
       <option value="VANDAL">VANDAL</option>
       <option value="PHANTOM">PHANTOM</option>
       <option value="OPERATOR">OPERATOR</option>
@@ -197,25 +136,25 @@
 
     <div id="VALORANT" class="tabcontent">
       <h3>VALORANT</h3>
-      <p>親愛的玩家們，您還在尋找一款既具挑戰性又充滿策略性的射擊遊戲嗎？那麼，《VALORANT》絕對是您的首選！由 Riot Games 推出，是一款集結了精準射擊與獨特角色技能的戰術射擊遊戲。</p>
+      <p>在時空的裂縫中誕生，VALORANT 乃戰場神明所創的榮耀聖域。這不是一場單純的戰鬥，而是一場英雄之選的試煉。每位特工皆被命運選中，融合神之槍法與靈魂技能，在煙火交織中爭奪傳說席位。戰場無情，唯有真英雄，能在此譜寫永恆戰歌。</p>
       <img src="https://i0.wp.com/uploads.saigacdn.com/2024/08/valorant-cs-release-00.jpg?resize=1200,630" alt="VALORANT">
     </div>
 
     <div id="VANDAL" class="tabcontent">
       <h3>VANDAL</h3>
-      <p>想要一擊必殺的快感嗎？暴徒是《特戰英豪》中最具破壞力的武器之一，擁有優秀的單發傷害，無論是遠距離還是近距離戰鬥，它都能帶給敵人致命的打擊。</p>
+      <p>由熔岩與怒火鍛鑄，VANDAL 是戰神之手親自打造的審判之刃。一發即命，一彈穿魂，其子彈仿若閃電貫穿天穹，摧毀凡人之軀。無論距離如何，神話中的暴徒從不猶豫，只問敵人是否足夠膽敢迎擊這份天罰。</p>
       <img src="https://image.gamebase.com.tw/gb_img/9/004/337/4337299.jpg" alt="VANDAL">
     </div>
 
     <div id="PHANTOM" class="tabcontent">
       <h3>PHANTOM</h3>
-      <p>如果你喜歡高射速、靈活操作和近距離的打擊，那麼幻象正是你在《特戰英豪》中不可或缺的武器！這把步槍擁有極高的射速，能在瞬息萬變的戰場上給敵人致命一擊。</p>
+      <p>幻象，乃幽影女神於月蝕之夜所賜之兵。它無聲無息，卻能於毫秒間扭轉戰局。槍口未動，敵人已潰。它的高速與沉默交織出死亡之舞，彷彿亡靈耳語，無形中收割戰場每一道生命氣息。</p>
       <img src="https://nowplay8.com/wp-content/uploads/2024/06/valorant-1.webp" alt="PHANTOM">
     </div>
 
     <div id="OPERATOR" class="tabcontent">
       <h3>OPERATOR</h3>
-      <p>想要在《特戰英豪》中稱霸狙擊領域嗎？那麼，間諜（OPERATOR） 就是為你而設的武器！這把狙擊槍擁有超高的單發傷害，能在一擊之下決定戰局。</p>
+      <p>從神之高塔射出的審判之矢，OPERATOR 是狙擊之神唯一的遺產。它非槍，而是一道神諭 —— 只為真正的獵人而鳴。當你握住它，便等同與命運簽下契約；一擊出手，生死立判，天地為之靜默，萬軍退避三舍。</p>
       <img src="https://www.upmedia.mg/upload/article/20240306193447706711.png" alt="OPERATOR">
     </div>
   </div>
@@ -230,12 +169,15 @@
         contents[i].style.display = "none";
       }
 
-      document.getElementById(selected).style.display = "block";
+      const selectedTab = document.getElementById(selected);
+      if (selectedTab) {
+        selectedTab.style.display = "block";
+      }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
+    window.onload = () => {
       showWeapon();
-    });
+    };
   </script>
 </body>
 </html>
